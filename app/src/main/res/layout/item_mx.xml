@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_12">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mx_name"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="微信支付"
+                android:textColor="#000000"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/mx_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_8"
+                android:text="2018-10-17 11:15:45"
+                android:textColor="#888888"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="+ 20.00"
+            android:textColor="#03bc01"
+            android:textSize="@dimen/sp_20"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#bcbab6"/>
+</LinearLayout>
