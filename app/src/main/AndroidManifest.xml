@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MXActivity"/>
+        <activity android:name=".LQActivity"/>
     </application>
 
 </manifest>

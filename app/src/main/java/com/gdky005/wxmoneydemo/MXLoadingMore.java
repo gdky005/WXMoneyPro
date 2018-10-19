@@ -4,7 +4,6 @@ import com.chad.library.adapter.base.loadmore.LoadMoreView;
 
 public class MXLoadingMore extends LoadMoreView {
 
-
     @Override
     public int getLayoutId() {
         return R.layout.item_mx_foot_view;

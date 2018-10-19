@@ -1,20 +1,21 @@
 package com.gdky005.wxmoneydemo;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
 
+import team.zhuoke.sdk.base.BaseActivity;
 import team.zhuoke.sdk.component.ZKRecycleView;
 
-public class MXActivity extends AppCompatActivity {
+/**
+ * ActionBar 的使用： https://www.cnblogs.com/Peter-Chen/p/6421354.html
+ */
+public class MXActivity extends BaseActivity {
 
     MXAdapter mxAdapter;
     ArrayList<MXItem> list;
@@ -35,13 +36,28 @@ public class MXActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mx);
+    protected int getLayoutId() {
+        return R.layout.activity_mx;
+    }
+
+    @Override
+    protected void initViews() {
+//        ActionBar actionBar = this.getActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); //Enable自定义的View
+////            actionBar.setCustomView(R.layout.actionbar_custom);//设置自定义的布局：actionbar_custom
+//        }
 
         recyclerView = findViewById(R.id.recycler_view);
+    }
 
+    @Override
+    protected void initListener() {
 
+    }
+
+    @Override
+    protected void initData() {
         list = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -52,34 +68,15 @@ public class MXActivity extends AppCompatActivity {
         }
 
         mxAdapter = new MXAdapter(list);
-
         mxAdapter.setLoadMoreView(new MXLoadingMore());
-
         mxAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-//                mxAdapter.openLoadAnimation();
-//                mxAdapter.notifyLoadMoreToLoading();
-
                 handler.sendEmptyMessageDelayed(0, 1000);
-
-//                try {
-//                    Thread.sleep(3000);
-//
-//                    list.addAll(list);
-//                    mxAdapter.notifyDataSetChanged();
-//                    mxAdapter.loadMoreEnd();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
             }
-
         }, recyclerView);
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mxAdapter);
-
-
     }
 }

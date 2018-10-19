@@ -1,26 +1,43 @@
 package com.gdky005.wxmoneydemo;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import team.zhuoke.sdk.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    protected void initViews() {
 
+    }
+
+    @Override
+    protected void initListener() {
         findViewById(R.id.mx_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MXActivity.class);
-                MainActivity.this.startActivity(intent);
+                Intent intent = new Intent(mContext, MXActivity.class);
+                mContext.startActivity(intent);
             }
         });
 
+        findViewById(R.id.lq_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, LQActivity.class);
+                mContext.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void initData() {
 
     }
 }
