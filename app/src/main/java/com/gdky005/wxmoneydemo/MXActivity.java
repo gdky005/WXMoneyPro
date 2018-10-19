@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 
+import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import java.util.ArrayList;
@@ -42,14 +43,13 @@ public class MXActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-//        ActionBar actionBar = this.getActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); //Enable自定义的View
-////            actionBar.setCustomView(R.layout.actionbar_custom);//设置自定义的布局：actionbar_custom
-//        }
-
         recyclerView = findViewById(R.id.recycler_view);
+
+        BarUtils.setStatusBarAlpha(this, 0);
+        BarUtils.setStatusBarLightMode(this, true);
+
     }
+
 
     @Override
     protected void initListener() {

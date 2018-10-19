@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    android:clipToPadding="true"
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <team.zhuoke.sdk.component.ZKRecycleView
         android:id="@+id/recycler_view"

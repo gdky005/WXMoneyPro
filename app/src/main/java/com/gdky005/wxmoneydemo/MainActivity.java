@@ -3,6 +3,8 @@ package com.gdky005.wxmoneydemo;
 import android.content.Intent;
 import android.view.View;
 
+import com.blankj.utilcode.util.BarUtils;
+
 import team.zhuoke.sdk.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
@@ -15,6 +17,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews() {
 
+        BarUtils.setStatusBarAlpha(this, 0);
+        BarUtils.setStatusBarLightMode(this, true);
     }
 
     @Override
