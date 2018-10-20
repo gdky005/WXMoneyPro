@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:yangzhe="http://schemas.android.com/apk/res-auto"
     android:background="#f2f2f2"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
@@ -50,12 +51,46 @@
     </LinearLayout>
 
 
-    <team.zhuoke.sdk.component.ZKRecycleView
-        android:id="@+id/recycler_view"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:overScrollMode="never"
-        android:scrollbars="none"/>
+        android:layout_height="match_parent">
+
+        <team.zhuoke.sdk.component.ZKRecycleView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
+
+
+        <com.gdky005.wxmoneydemo.HProgressBarLoading
+            android:id="@+id/top_progress"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            yangzhe:max="100"
+            yangzhe:progressColor="#4bbf4a"
+            yangzhe:progressHeight="8"/>
+
+
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="@dimen/dp_200"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0.5dp"-->
+                <!--android:background="#42ab42"/>-->
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="3dp"-->
+                <!--android:background="#4bbf4a"/>-->
+
+        <!--</LinearLayout>-->
+
+    </RelativeLayout>
 
 </LinearLayout>
