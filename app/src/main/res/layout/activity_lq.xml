@@ -103,20 +103,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
-                android:background="#1aad19"
+                android:background="@drawable/lq_cz_selector"
                 android:text="充值"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_20"/>
+                style="?android:attr/borderlessButtonStyle"
+                android:textColor="@drawable/lq_selector_cz"
+                android:textSize="@dimen/sp_18"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_14"
                 android:layout_marginBottom="23dp"
-                android:background="#f1f1f1"
+                style="?android:attr/borderlessButtonStyle"
+                android:background="@drawable/lq_tx_selector"
                 android:text="提现"
-                android:textColor="#353535"
-                android:textSize="@dimen/sp_20"/>
+                android:textColor="@drawable/lq_selector_tx"
+                android:textSize="@dimen/sp_18"/>
 
         </LinearLayout>
 
