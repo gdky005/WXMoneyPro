@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
@@ -35,6 +36,7 @@ public class MXActivity extends BaseActivity {
 
     TextView topLqTV;
     ZKRecycleView recyclerView;
+    RelativeLayout rl_close;
     HProgressBarLoading mTopProgress;
     boolean isContinue = true;
 
@@ -63,6 +65,7 @@ public class MXActivity extends BaseActivity {
         topLqTV = findViewById(R.id.top_lq);
         mTopProgress = findViewById(R.id.top_progress);
         recyclerView = findViewById(R.id.recycler_view);
+        rl_close = findViewById(R.id.rl_close);
 
         BarUtils.setStatusBarAlpha(this, 0);
         BarUtils.setStatusBarLightMode(this, true);
@@ -73,7 +76,12 @@ public class MXActivity extends BaseActivity {
 
     @Override
     protected void initListener() {
-
+        rl_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

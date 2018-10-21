@@ -53,7 +53,7 @@ public class MXBean {
         private String name;
         private int newTime;
         private String time;
-        private int money;
+        private String money;
         private boolean spendState;
 
         public int getId() {
@@ -88,11 +88,11 @@ public class MXBean {
             this.time = time;
         }
 
-        public int getMoney() {
+        public String getMoney() {
             return money;
         }
 
-        public void setMoney(int money) {
+        public void setMoney(String money) {
             this.money = money;
         }
 
