@@ -37,12 +37,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/money_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:text="+ 20.00"
-            android:textColor="#03bc01"
+            android:textColor="@color/money_green"
             android:textSize="@dimen/sp_20"/>
     </RelativeLayout>
 

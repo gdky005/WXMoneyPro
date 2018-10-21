@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -13,9 +14,12 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.BarUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.Call;
 import team.zhuoke.sdk.base.BaseActivity;
 import team.zhuoke.sdk.component.ZKRecycleView;
 
@@ -24,8 +28,10 @@ import team.zhuoke.sdk.component.ZKRecycleView;
  */
 public class MXActivity extends BaseActivity {
 
+    private static final String TAG = "MXActivity";
+
     MXAdapter mxAdapter;
-    ArrayList<MXItem> list;
+    ArrayList<MXBean.ResultBean> list;
 
     TextView topLqTV;
     ZKRecycleView recyclerView;
@@ -73,25 +79,26 @@ public class MXActivity extends BaseActivity {
     @Override
     protected void initData() {
         list = new ArrayList<>();
-        ArrayList newList = new ArrayList<>();
+//        ArrayList newList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            MXItem mxItem = new MXItem();
+//        for (int i = 0; i < 10; i++) {
+//            MXItem mxItem = new MXItem();
+//
+//            mxItem.setName("转账支付_" + (i + 1));
+//            list.add(mxItem);
+//        }
 
-            mxItem.setName("转账支付_" + (i + 1));
-            list.add(mxItem);
-        }
-
-        mxAdapter = new MXAdapter(newList);
+        mxAdapter = new MXAdapter(list);
         mxAdapter.setLoadMoreView(new MXLoadingMore());
         mxAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                handler.sendEmptyMessageDelayed(0, 1000);
+//                handler.sendEmptyMessageDelayed(0, 1000);
+                requestData();
             }
         }, recyclerView);
 
-        handler.sendEmptyMessageDelayed(0, 1000);
+//        handler.sendEmptyMessageDelayed(0, 1000);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mxAdapter);
@@ -104,7 +111,7 @@ public class MXActivity extends BaseActivity {
                 mTopProgress.setVisibility(View.VISIBLE);
             }
 
-            mTopProgress.setCurProgress(100, 3000, new HProgressBarLoading.OnEndListener() {
+            mTopProgress.setCurProgress(100, 2000, new HProgressBarLoading.OnEndListener() {
                 @Override
                 public void onEnd() {
                     finishOperation(true);
@@ -113,6 +120,38 @@ public class MXActivity extends BaseActivity {
             });
         }
 
+        requestData();
+
+    }
+
+    private void requestData() {
+        String url = "https://www.zkteam.cc/WXMoney/lqMX";
+        OkHttpUtils
+                .get()
+                .url(url)
+                .build()
+                .execute(new MXCallBack() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onResponse(MXBean response, int id) {
+                        if (response != null) {
+                            List<MXBean.ResultBean> mxBeans = response.getResult();
+                            if (mxBeans != null) {
+
+                                list.addAll(mxBeans);
+                                mxAdapter.setNewData(list);
+                                mxAdapter.loadMoreComplete();
+
+                                topLqTV.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+
+                });
     }
 
 

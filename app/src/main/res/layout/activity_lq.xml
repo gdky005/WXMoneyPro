@@ -83,6 +83,7 @@
                 android:src="@mipmap/ic_lq"/>
 
             <TextView
+                android:id="@+id/lq_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_8"
@@ -91,6 +92,7 @@
                 android:textSize="@dimen/sp_20"/>
 
             <TextView
+                android:id="@+id/lq_money_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥33.00"
