@@ -30,6 +30,8 @@ import team.zhuoke.sdk.component.ZKRecycleView;
 public class MXActivity extends BaseActivity {
 
     private static final String TAG = "MXActivity";
+    // 首次进入延迟时间
+    private static final long DELAY_TIME = 1 * 1000;
 
     MXAdapter mxAdapter;
     ArrayList<MXBean.ResultBean> list;
@@ -38,7 +40,6 @@ public class MXActivity extends BaseActivity {
     ZKRecycleView recyclerView;
     RelativeLayout rl_close;
     HProgressBarLoading mTopProgress;
-    boolean isContinue = true;
 
     @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
@@ -46,11 +47,8 @@ public class MXActivity extends BaseActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 0) {
+                recyclerView.setVisibility(View.VISIBLE);
                 topLqTV.setVisibility(View.VISIBLE);
-
-                list.addAll(list);
-                mxAdapter.setNewData(list);
-                mxAdapter.loadMoreComplete();
             }
         }
     };
@@ -69,8 +67,6 @@ public class MXActivity extends BaseActivity {
 
         BarUtils.setStatusBarAlpha(this, 0);
         BarUtils.setStatusBarLightMode(this, true);
-
-        topLqTV.setVisibility(View.INVISIBLE);
     }
 
 
@@ -87,49 +83,37 @@ public class MXActivity extends BaseActivity {
     @Override
     protected void initData() {
         list = new ArrayList<>();
-//        ArrayList newList = new ArrayList<>();
-
-//        for (int i = 0; i < 10; i++) {
-//            MXItem mxItem = new MXItem();
-//
-//            mxItem.setName("转账支付_" + (i + 1));
-//            list.add(mxItem);
-//        }
-
         mxAdapter = new MXAdapter(list);
         mxAdapter.setLoadMoreView(new MXLoadingMore());
         mxAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-//                handler.sendEmptyMessageDelayed(0, 1000);
                 requestData();
             }
         }, recyclerView);
-
-//        handler.sendEmptyMessageDelayed(0, 1000);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mxAdapter);
-
-
-
-        if (isContinue = true) {
-            //如果进度条隐藏则让它显示
-            if (View.GONE == mTopProgress.getVisibility()) {
-                mTopProgress.setVisibility(View.VISIBLE);
-            }
-
-            mTopProgress.setCurProgress(100, 2000, new HProgressBarLoading.OnEndListener() {
-                @Override
-                public void onEnd() {
-                    finishOperation(true);
-                    isContinue = false;
-                }
-            });
-        }
-
+        progress();
         requestData();
 
+    }
+
+    private void progress() {
+        //如果进度条隐藏则让它显示
+        if (View.GONE == mTopProgress.getVisibility()) {
+            mTopProgress.setVisibility(View.VISIBLE);
+        }
+        handler.sendEmptyMessageDelayed(0, DELAY_TIME);
+//        mTopProgress.setMax(1000);
+        mTopProgress.setCurProgress(50, (long) (DELAY_TIME * 1.5), new HProgressBarLoading.OnEndListener() {
+            @Override
+            public void onEnd() {
+                finishOperation(true);
+            }
+        });
+
+        topLqTV.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.GONE);
     }
 
     private void requestData() {
@@ -153,12 +137,9 @@ public class MXActivity extends BaseActivity {
                                 list.addAll(mxBeans);
                                 mxAdapter.setNewData(list);
                                 mxAdapter.loadMoreComplete();
-
-                                topLqTV.setVisibility(View.VISIBLE);
                             }
                         }
                     }
-
                 });
     }
 
