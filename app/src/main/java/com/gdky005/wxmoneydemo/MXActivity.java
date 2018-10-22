@@ -36,6 +36,7 @@ public class MXActivity extends BaseActivity {
     MXAdapter mxAdapter;
     ArrayList<MXBean.ResultBean> list;
 
+    TextView loadingTV;
     TextView topLqTV;
     ZKRecycleView recyclerView;
     RelativeLayout rl_close;
@@ -85,12 +86,34 @@ public class MXActivity extends BaseActivity {
         list = new ArrayList<>();
         mxAdapter = new MXAdapter(list);
         mxAdapter.setLoadMoreView(new MXLoadingMore());
+//        mxAdapter.setNotDoAnimationCount(100);
+//        mxAdapter.openLoadAnimation(null);
+        mxAdapter.enableLoadMoreEndClick(true);
+        mxAdapter.setEnableLoadMore(true);
         mxAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                requestData();
+//                mxAdapter.setLoadMoreView(new MXLoadingMore());
+                View view = mxAdapter.getViewByPosition(recyclerView, mxAdapter.getLoadMoreViewPosition(), R.id.load_more_loading_view);
+                if (view != null) {
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            loadingTV = v.findViewById(R.id.loading_text);
+                            loadingTV.setText("正在加载");
+
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    requestData();
+                                }
+                            }, 500);
+                        }
+                    });
+                }
             }
         }, recyclerView);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mxAdapter);
         progress();
@@ -126,21 +149,31 @@ public class MXActivity extends BaseActivity {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Log.e(TAG, "onError: ", e);
+                        mxAdapter.loadMoreComplete();
+                        setLoadingTV();
                     }
 
                     @Override
                     public void onResponse(MXBean response, int id) {
+                        mxAdapter.loadMoreComplete();
+                        setLoadingTV();
                         if (response != null) {
                             List<MXBean.ResultBean> mxBeans = response.getResult();
                             if (mxBeans != null) {
 
                                 list.addAll(mxBeans);
                                 mxAdapter.setNewData(list);
-                                mxAdapter.loadMoreComplete();
+
                             }
                         }
                     }
                 });
+    }
+
+    private void setLoadingTV() {
+        if (loadingTV != null) {
+            loadingTV.setText("加载更多");
+        }
     }
 
 

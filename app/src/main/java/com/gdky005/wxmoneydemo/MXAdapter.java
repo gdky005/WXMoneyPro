@@ -30,4 +30,6 @@ public class MXAdapter extends BaseQuickAdapter<MXBean.ResultBean, BaseViewHolde
 
         helper.setText(R.id.money_tv, money);
     }
+
+
 }

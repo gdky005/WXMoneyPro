@@ -24,8 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/dp_10"
-            android:id="@+id/rl_close">
-            <!--android:background="@drawable/lq_selector_bg">-->
+            android:id="@+id/rl_close"
+            android:background="@drawable/lq_selector_bg">
 
             <ImageView
                 android:layout_width="16dp"
