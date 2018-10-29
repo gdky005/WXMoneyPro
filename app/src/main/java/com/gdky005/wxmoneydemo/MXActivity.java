@@ -29,6 +29,9 @@ import team.zhuoke.sdk.component.ZKRecycleView;
  */
 public class MXActivity extends BaseActivity {
 
+    private int page = 1;
+    private static final int pageCount = 20;
+
     private static final String TAG = "MXActivity";
     // 首次进入延迟时间
     private static final long DELAY_TIME = 1 * 1000;
@@ -140,7 +143,7 @@ public class MXActivity extends BaseActivity {
     }
 
     private void requestData() {
-        String url = "https://www.zkteam.cc/WXMoney/lqMX";
+        String url = "https://www.zkteam.cc/WXMoney/lqMX?pageCount=" + pageCount + "&page=" + (page++);
         OkHttpUtils
                 .get()
                 .url(url)
